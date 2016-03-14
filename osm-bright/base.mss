@@ -159,13 +159,31 @@ Map { background-color: @water; }
 /* ADMINISTRATIVE BOUNDARIES
 /* ================================================================== */
 
-
-#admin[admin_level='2'][zoom>1] {
-  line-color:@admin_2;
-  line-width:0.5;
-  [zoom=2] { line-opacity: 0.25; }
-  [zoom=3] { line-opacity: 0.3; }
-  [zoom=4] { line-opacity: 0.4; }
+#admin {
+  opacity: 0.5;
+  line-join: round;
+  line-color: @admin_2;
+  [maritime=1] {
+    // downplay boundaries that are over water
+    line-color: @water;
+  }
+  // Countries
+  [admin_level=2] {
+    line-width: 0.8;
+    line-cap: round;
+    [zoom>=4] { line-width: 1.2; }
+    [zoom>=6] { line-width: 2; }
+    [zoom>=8] { line-width: 4; }
+    [disputed=1] { line-dasharray: 4,4; }
+  }
+  // States / Provices / Subregions
+  [admin_level>=3] {
+    line-width: 0.3;
+    line-dasharray: 10,3,3,3;
+    [zoom>=6] { line-width: 1; }
+    [zoom>=8] { line-width: 1.5; }
+    [zoom>=12] { line-width: 2; }
+  }
 }
 
 /* ================================================================== */
